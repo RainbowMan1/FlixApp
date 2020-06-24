@@ -7,11 +7,13 @@
 //
 
 #import "MoviesViewController.h"
+#import "MovieCell.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (strong, nonatomic) NSArray *movies;
 @end
 
 @implementation MoviesViewController
@@ -30,7 +32,7 @@
            }
            else {
                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-               NSLog(@"%@", dataDictionary);
+               self.movies = dataDictionary[@"results"];
                [self.tableView reloadData];
                // TODO: Get the array of movies
                // TODO: Store the movies in a property to use elsewhere
@@ -52,13 +54,21 @@
 */
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    UITableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:@"MovieCell"];
-    
+    MovieCell *cell =[tableView dequeueReusableCellWithIdentifier:@"MovieCell"];
+    NSString *baseURLString =@"https://image.tmdb.org/t/p/w500";
+    NSDictionary *movie = self.movies[indexPath.row];
+    NSString *posterURLString = movie[@"poster_path"];
+    NSString *fullPosterURLString = [baseURLString stringByAppendingString:posterURLString];
+    NSLog(@"%@", fullPosterURLString);
+    NSURL *posterURL = [NSURL URLWithString:fullPosterURLString];
+    cell.textLabel.text = movie[@"title"];
+    cell.posterView.image = nil;
+    [cell.posterView setImageWithURL:posterURL];
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 20;
+    return self.movies.count;
 }
 
 @end
