@@ -9,6 +9,7 @@
 #import "MoviesViewController.h"
 #import "MovieCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "DetailsViewController.h"
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -40,6 +41,8 @@
     [super viewDidLoad];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+    self.tableView.rowHeight = 147;
     // Do any additional setup after loading the view.
     [self fetchMovies];
     self.refreshControl =[[UIRefreshControl alloc] init];
@@ -53,21 +56,31 @@
     
 
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    UITableViewCell *tappedCell =sender;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+    NSDictionary *movie = self.movies[indexPath.row];
+    DetailsViewController *detailsViewController = [segue destinationViewController];
+    detailsViewController.movie = movie;
 }
-*/
+
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     MovieCell *cell =[tableView dequeueReusableCellWithIdentifier:@"MovieCell"];
     NSString *baseURLString =@"https://image.tmdb.org/t/p/w500";
+    //NSString *baseURLString =@"https://image.tmdb.org/t/p/original";
+    
     NSDictionary *movie = self.movies[indexPath.row];
     NSString *posterURLString = movie[@"poster_path"];
+    /*if (posterURLString){
+        posterURLString = movie[@"poster_path"];
+    }*/
     NSString *fullPosterURLString = [baseURLString stringByAppendingString:posterURLString];
     NSURL *posterURL = [NSURL URLWithString:fullPosterURLString];
     cell.textLabel.text = movie[@"title"];
