@@ -15,6 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *movies;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
@@ -32,8 +33,10 @@
                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                self.movies = dataDictionary[@"results"];
                [self.tableView reloadData];
+            
            }
         [self.refreshControl endRefreshing];
+        [self.activityIndicator stopAnimating];
         }];
     [task resume];
 }
@@ -44,10 +47,14 @@
     
     self.tableView.rowHeight = 147;
     // Do any additional setup after loading the view.
+    
     [self fetchMovies];
+    
     self.refreshControl =[[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchMovies) forControlEvents:UIControlEventValueChanged];
-    [self.tableView insertSubview:self.refreshControl atIndex:0];
+    [self.tableView addSubview:self.refreshControl];
+    [self.activityIndicator startAnimating];
+
                // TODO: Get the array of movies
                // TODO: Store the movies in a property to use elsewhere
                // TODO: Reload your table view data
