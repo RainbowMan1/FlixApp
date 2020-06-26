@@ -21,47 +21,60 @@
 
 @implementation MoviesViewController
 
--(void)fetchMovies {
-    NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-           if (error != nil) {
-               NSLog(@"%@", [error localizedDescription]);
-           }
-           else {
-               NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-               self.movies = dataDictionary[@"results"];
-               [self.tableView reloadData];
-            
-           }
-        [self.refreshControl endRefreshing];
-        [self.activityIndicator stopAnimating];
-        }];
-    [task resume];
-}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-    self.tableView.rowHeight = 147;
+    self.tableView.rowHeight = 200;
     // Do any additional setup after loading the view.
-    
+    [self.activityIndicator startAnimating];
     [self fetchMovies];
     
     self.refreshControl =[[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchMovies) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];
-    [self.activityIndicator startAnimating];
-
-               // TODO: Get the array of movies
-               // TODO: Store the movies in a property to use elsewhere
-               // TODO: Reload your table view data
-}
-       
     
+    
+    // TODO: Get the array of movies
+    // TODO: Store the movies in a property to use elsewhere
+    // TODO: Reload your table view data
+}
 
+
+-(void)fetchMovies {
+    NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+        NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            if (error != nil) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No Internet Connection"
+                       message:@"Please connect to a WiFi or a cellular network."
+                preferredStyle:(UIAlertControllerStyleAlert)];
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Try Again"
+                                                                   style:UIAlertActionStyleDefault
+                                                                 handler:^(UIAlertAction * _Nonnull action) {
+                    [self fetchMovies];
+                                                                 }];
+                // add the OK action to the alert controller
+                [alert addAction:okAction];
+                [self presentViewController:alert animated:YES completion:^{
+                    [self fetchMovies];
+                }];
+                }
+            else {
+                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                self.movies = dataDictionary[@"results"];
+                [self.tableView reloadData];
+                
+            }
+            [self.refreshControl endRefreshing];
+            [self.activityIndicator stopAnimating];
+        }];
+        [task resume];
+}
 
 
 #pragma mark - Navigation
@@ -86,11 +99,11 @@
     NSDictionary *movie = self.movies[indexPath.row];
     NSString *posterURLString = movie[@"poster_path"];
     /*if (posterURLString){
-        posterURLString = movie[@"poster_path"];
-    }*/
+     posterURLString = movie[@"poster_path"];
+     }*/
     NSString *fullPosterURLString = [baseURLString stringByAppendingString:posterURLString];
     NSURL *posterURL = [NSURL URLWithString:fullPosterURLString];
-    cell.textLabel.text = movie[@"title"];
+    cell.movieTitleLabel.text = movie[@"title"];
     cell.posterView.image = nil;
     [cell.posterView setImageWithURL:posterURL];
     return cell;

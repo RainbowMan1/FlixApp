@@ -49,6 +49,7 @@
 		8FC1F838679435C2A665E6DA /* Pods_Flix_FlixUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flix_FlixUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB7C8B3624A5147C009DA578 /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		DB7C8B3724A5147C009DA578 /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		DB7C8B3924A59268009DA578 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		DB9799E824A3B7B90006F238 /* Flix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB9799EB24A3B7B90006F238 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DB9799EC24A3B7B90006F238 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -118,6 +119,7 @@
 		ACF7883DAC07DE63330EC3B0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DB7C8B3924A59268009DA578 /* SystemConfiguration.framework */,
 				F3D3A74100B4534907EE59A7 /* Pods_Flix.framework */,
 				8FC1F838679435C2A665E6DA /* Pods_Flix_FlixUITests.framework */,
 				013338A3E96647F3D48DD66D /* Pods_FlixTests.framework */,
