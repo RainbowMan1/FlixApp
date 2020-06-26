@@ -9,6 +9,7 @@
 #import "WishlistViewController.h"
 #import "WishlistCollectionCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "DetailsViewController.h"
 
 @interface WishlistViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 @property (strong, nonatomic) NSMutableArray *movies;
@@ -53,7 +54,7 @@
         for(NSNumber *movie in wishlistArray){
             NSString *moviestring = [movie stringValue];
             NSString *urlWithId =[[@"https://api.themoviedb.org/3/movie/" stringByAppendingString: moviestring]stringByAppendingString:@"?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"];
-            NSLog(@"%@",urlWithId);
+            //NSLog(@"%@",urlWithId);
             NSURL *url = [NSURL URLWithString:urlWithId];
             NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -75,9 +76,9 @@
                 }
                 else {
                     NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                    NSLog(@"%@",dataDictionary);
+                    //NSLog(@"%@",dataDictionary);
                     [self.movies addObject:dataDictionary];
-                    NSLog(@"%@", self.movies);
+                    //NSLog(@"%@", self.movies);
                     [self.collectionView reloadData];
                     
                 }
@@ -88,15 +89,19 @@
         [self.refreshControl endRefreshing];
     }
 }
-/*
+
  #pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+     UICollectionViewCell *tappedCell =sender;
+     NSIndexPath *indexPath = [self.collectionView indexPathForCell:tappedCell];
+     NSDictionary *movie = self.movies[indexPath.item];
+     DetailsViewController *detailsViewController = [segue destinationViewController];
+     detailsViewController.movie = movie;
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
  }
- */
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     WishlistCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WishlistCollectionCell" forIndexPath:indexPath];

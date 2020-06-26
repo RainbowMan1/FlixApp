@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *movieLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *synopsisLabel;
+@property (weak, nonatomic) IBOutlet UILabel *genreLabel;
+@property (weak, nonatomic) IBOutlet UIView *backgroudView;
 
 @end
 
@@ -43,6 +45,10 @@
     self.movieLabel.text = self.movie[@"title"];
     self.dateLabel.text = [@"Release Date: " stringByAppendingString:self.movie[@"release_date"]];
     self.synopsisLabel.text = self.movie[@"overview"];
+    self.genreLabel.text = self.genreList;
+    [self.synopsisLabel setNumberOfLines:0];
+    [self.synopsisLabel sizeToFit];
+
 }
 
 
