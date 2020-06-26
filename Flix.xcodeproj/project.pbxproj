@@ -10,6 +10,8 @@
 		48EDEC6C0A681E0E1180A33A /* Pods_Flix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D3A74100B4534907EE59A7 /* Pods_Flix.framework */; };
 		AD62408D123F17F0D3EFCDEF /* Pods_FlixTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 013338A3E96647F3D48DD66D /* Pods_FlixTests.framework */; };
 		DB7C8B3824A5147C009DA578 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7C8B3724A5147C009DA578 /* DetailsViewController.m */; };
+		DB7C8B3D24A5C672009DA578 /* WishlistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7C8B3C24A5C672009DA578 /* WishlistViewController.m */; };
+		DB7C8B4024A5C87A009DA578 /* WishlistCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7C8B3F24A5C87A009DA578 /* WishlistCollectionCell.m */; };
 		DB9799ED24A3B7B90006F238 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DB9799EC24A3B7B90006F238 /* AppDelegate.m */; };
 		DB9799F024A3B7B90006F238 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DB9799EF24A3B7B90006F238 /* SceneDelegate.m */; };
 		DB9799F624A3B7B90006F238 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB9799F424A3B7B90006F238 /* Main.storyboard */; };
@@ -50,6 +52,10 @@
 		DB7C8B3624A5147C009DA578 /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		DB7C8B3724A5147C009DA578 /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
 		DB7C8B3924A59268009DA578 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		DB7C8B3B24A5C672009DA578 /* WishlistViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WishlistViewController.h; sourceTree = "<group>"; };
+		DB7C8B3C24A5C672009DA578 /* WishlistViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WishlistViewController.m; sourceTree = "<group>"; };
+		DB7C8B3E24A5C87A009DA578 /* WishlistCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WishlistCollectionCell.h; sourceTree = "<group>"; };
+		DB7C8B3F24A5C87A009DA578 /* WishlistCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WishlistCollectionCell.m; sourceTree = "<group>"; };
 		DB9799E824A3B7B90006F238 /* Flix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB9799EB24A3B7B90006F238 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DB9799EC24A3B7B90006F238 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -192,6 +198,8 @@
 				DB979A2524A3C4810006F238 /* MoviesViewController.m */,
 				DB7C8B3624A5147C009DA578 /* DetailsViewController.h */,
 				DB7C8B3724A5147C009DA578 /* DetailsViewController.m */,
+				DB7C8B3B24A5C672009DA578 /* WishlistViewController.h */,
+				DB7C8B3C24A5C672009DA578 /* WishlistViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -201,6 +209,8 @@
 			children = (
 				DB979A2824A3D4CC0006F238 /* MovieCell.h */,
 				DB979A2924A3D4CC0006F238 /* MovieCell.m */,
+				DB7C8B3E24A5C87A009DA578 /* WishlistCollectionCell.h */,
+				DB7C8B3F24A5C87A009DA578 /* WishlistCollectionCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -449,6 +459,8 @@
 				DB7C8B3824A5147C009DA578 /* DetailsViewController.m in Sources */,
 				DB9799F024A3B7B90006F238 /* SceneDelegate.m in Sources */,
 				DB979A2624A3C4810006F238 /* MoviesViewController.m in Sources */,
+				DB7C8B4024A5C87A009DA578 /* WishlistCollectionCell.m in Sources */,
+				DB7C8B3D24A5C672009DA578 /* WishlistViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
