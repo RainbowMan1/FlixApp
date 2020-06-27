@@ -41,7 +41,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://s7.gifyu.com/images/ezgif-4-5f01df68c19a.md.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://thumbs.gfycat.com/FreeGraveItaliangreyhound-mobile.mp4' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [Recordit](http://www.recordit.co).
 
