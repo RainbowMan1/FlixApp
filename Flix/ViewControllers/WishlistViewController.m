@@ -15,6 +15,7 @@
 @property (strong, nonatomic) NSMutableArray *movies;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) NSString *genreString;
 @end
 
 @implementation WishlistViewController
@@ -24,7 +25,6 @@
     self.movies = [[NSMutableArray alloc] init];
     self.collectionView.dataSource = self;
     self.collectionView.delegate=self;
-    
     [self fetchMovies];
     UICollectionViewFlowLayout *layout =  (UICollectionViewFlowLayout*)self.collectionView.collectionViewLayout;
     CGFloat posterPerRow = 2;
@@ -34,6 +34,7 @@
     [self.refreshControl addTarget:self action:@selector(fetchMovies) forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:self.refreshControl];
 }
+
 -(void)fetchMovies {
     NSMutableArray *wishlistArray = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"wishlist"];
     if (wishlistArray==nil || [wishlistArray count] == 0){
@@ -90,18 +91,7 @@
     }
 }
 
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-     UICollectionViewCell *tappedCell =sender;
-     NSIndexPath *indexPath = [self.collectionView indexPathForCell:tappedCell];
-     NSDictionary *movie = self.movies[indexPath.item];
-     DetailsViewController *detailsViewController = [segue destinationViewController];
-     detailsViewController.movie = movie;
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
+
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     WishlistCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WishlistCollectionCell" forIndexPath:indexPath];
@@ -110,6 +100,14 @@
     NSString *baseURLString =@"https://image.tmdb.org/t/p/w500";
     NSString *fullPosterURLString = [baseURLString stringByAppendingString:posterURLString];
     NSURL *posterURL = [NSURL URLWithString:fullPosterURLString];
+    NSArray *genrearray = movie[@"genres"];
+    //NSLog(@"%@", genrearray);
+    //NSLog(@"%@", [genrearray class]);
+    NSString *genreString = @"Genre: ";
+    for (NSDictionary *genre in genrearray){
+        genreString = [[genreString stringByAppendingString:genre[@"name"]]stringByAppendingString:@", "];
+    }
+    genreString = [genreString substringToIndex:[genreString length] - 2];
     cell.posterView.image = nil;
     [cell.posterView setImageWithURL:posterURL];
     return cell;
@@ -117,6 +115,27 @@
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.movies.count;
+}
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    UICollectionViewCell *tappedCell =sender;
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:tappedCell];
+    NSDictionary *movie = self.movies[indexPath.item];
+    DetailsViewController *detailsViewController = [segue destinationViewController];
+    NSArray *genrearray = movie[@"genres"];
+    //NSLog(@"%@", genrearray);
+    //NSLog(@"%@", [genrearray class]);
+    NSString *genreString = @"Genre: ";
+    for (NSDictionary *genre in genrearray){
+        genreString = [[genreString stringByAppendingString:genre[@"name"]]stringByAppendingString:@", "];
+    }
+    genreString = [genreString substringToIndex:[genreString length] - 2];
+    detailsViewController.genreList = genreString;
+    detailsViewController.movie = movie;
+// Get the new view controller using [segue destinationViewController].
+// Pass the selected object to the new view controller.
 }
 
 @end

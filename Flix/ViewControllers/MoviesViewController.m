@@ -18,7 +18,6 @@
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong,nonatomic) NSMutableDictionary *genres;
-@property (strong, nonatomic) NSString *genreString;
 
 @end
 
@@ -141,16 +140,15 @@
     }
     
     NSArray *genrearray = movie[@"genre_ids"];
-    NSLog(@"%@", genrearray);
+    //NSLog(@"%@", genrearray);
     NSString *genreString = @"Genre: ";
     if ([self.genres count] != 0){
     for (NSNumber *genreID in genrearray){
         genreString = [[genreString stringByAppendingString:self.genres[genreID]]stringByAppendingString:@", "];
     }
     genreString = [genreString substringToIndex:[genreString length] - 2];
-    NSLog(@"%@",genreString);
+    //NSLog(@"%@",genreString);
         cell.genreLabel.text = genreString;
-        self.genreString = genreString;
     }
 
     return cell;
@@ -204,10 +202,17 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
     NSDictionary *movie = self.movies[indexPath.row];
     DetailsViewController *detailsViewController = [segue destinationViewController];
-    detailsViewController.genreList = self.genreString;
+    NSArray *genrearray = movie[@"genre_ids"];
+    NSString *genreString = @"Genre: ";
+    if ([self.genres count] != 0){
+    for (NSNumber *genreID in genrearray){
+        genreString = [[genreString stringByAppendingString:self.genres[genreID]]stringByAppendingString:@", "];
+    }
+    genreString = [genreString substringToIndex:[genreString length] - 2];
+    detailsViewController.genreList = genreString;
     detailsViewController.movie = movie;
 }
 
-
+}
 
 @end
