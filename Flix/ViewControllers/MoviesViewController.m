@@ -108,7 +108,7 @@
             //self.movies = dataDictionary[@"results"];
         }
         [self.activityIndicator stopAnimating];
-
+        
     }];
     [task resume];
 }
@@ -143,14 +143,14 @@
     //NSLog(@"%@", genrearray);
     NSString *genreString = @"Genre: ";
     if ([self.genres count] != 0){
-    for (NSNumber *genreID in genrearray){
-        genreString = [[genreString stringByAppendingString:self.genres[genreID]]stringByAppendingString:@", "];
-    }
-    genreString = [genreString substringToIndex:[genreString length] - 2];
-    //NSLog(@"%@",genreString);
+        for (NSNumber *genreID in genrearray){
+            genreString = [[genreString stringByAppendingString:self.genres[genreID]]stringByAppendingString:@", "];
+        }
+        genreString = [genreString substringToIndex:[genreString length] - 2];
+        //NSLog(@"%@",genreString);
         cell.genreLabel.text = genreString;
     }
-
+    
     return cell;
 }
 
@@ -205,14 +205,14 @@
     NSArray *genrearray = movie[@"genre_ids"];
     NSString *genreString = @"Genre: ";
     if ([self.genres count] != 0){
-    for (NSNumber *genreID in genrearray){
-        genreString = [[genreString stringByAppendingString:self.genres[genreID]]stringByAppendingString:@", "];
+        for (NSNumber *genreID in genrearray){
+            genreString = [[genreString stringByAppendingString:self.genres[genreID]]stringByAppendingString:@", "];
+        }
+        genreString = [genreString substringToIndex:[genreString length] - 2];
+        detailsViewController.genreList = genreString;
+        detailsViewController.movie = movie;
     }
-    genreString = [genreString substringToIndex:[genreString length] - 2];
-    detailsViewController.genreList = genreString;
-    detailsViewController.movie = movie;
-}
-
+    
 }
 
 @end

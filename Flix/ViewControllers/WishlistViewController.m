@@ -134,8 +134,8 @@
     genreString = [genreString substringToIndex:[genreString length] - 2];
     detailsViewController.genreList = genreString;
     detailsViewController.movie = movie;
-// Get the new view controller using [segue destinationViewController].
-// Pass the selected object to the new view controller.
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
 
 @end
